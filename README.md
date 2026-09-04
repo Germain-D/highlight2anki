@@ -67,3 +67,7 @@ src/
 ```
 
 Aucune étape de build : les modules ES sont chargés directement par Chrome.
+
+## Licence
+
+[MIT](LICENSE)
