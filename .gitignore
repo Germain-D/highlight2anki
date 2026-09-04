@@ -1,0 +1,26 @@
+# Build du Chrome Web Store (assets/package.sh)
+highlight2anki-*.zip
+
+# Dépendances (playwright pour assets/make-screenshots.js)
+node_modules/
+package-lock.json
+
+# Python (assets/make-icons.py)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Secrets / config locale
+.env
+.env.*
+!.env.example
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Éditeurs
+.vscode/
+.idea/
+*.swp
