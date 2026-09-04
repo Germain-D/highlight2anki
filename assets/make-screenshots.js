@@ -1,10 +1,13 @@
 // Régénère les captures d'écran du store (assets/screenshots/*.png).
 //   cd assets && python3 -m http.server 8099 &   # sert demo-page.html
 //   xvfb-run -a node assets/make-screenshots.js   # puis composition : voir STORE.md
-// Nécessite playwright (npm i playwright) et le Chromium préinstallé.
+// Nécessite playwright (npm i playwright). Par défaut le Chromium de playwright ;
+// définissez CHROMIUM_PATH pour pointer un binaire précis.
 const { chromium } = require('playwright');
 const fs = require('fs');
-const EXT = '/home/user/highlight2anki';
+const path = require('path');
+// Racine du dépôt, déduite de l'emplacement de ce script.
+const EXT = path.resolve(__dirname, '..');
 const OUT = `${EXT}/assets/screenshots`;
 
 const toast = (id) => `
@@ -24,7 +27,7 @@ const toast = (id) => `
 (async () => {
   fs.mkdirSync(OUT, { recursive: true });
   const ctx = await chromium.launchPersistentContext('/tmp/pw-profile2', {
-    executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
+    executablePath: process.env.CHROMIUM_PATH || undefined,
     headless: false,
     args: [`--disable-extensions-except=${EXT}`, `--load-extension=${EXT}`, '--no-sandbox'],
     viewport: { width: 1280, height: 800 },
